@@ -75,6 +75,7 @@ const signinController = async (req, res) => {
         userId: user?._id,
         username: user?.username,
         email: user?.email,
+        mfaVerified: user.mfaEnabled ? true : false,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }

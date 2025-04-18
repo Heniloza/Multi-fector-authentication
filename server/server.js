@@ -5,6 +5,7 @@ const { connectMongoDB } = require("./connection");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/authRoutes.js");
 const mfaRoutes = require("./routes/mfaRoutes.js");
+const profileRoutes = require("./routes/profileRoutes.js");
 const cors = require("cors");
 const app = express();
 
@@ -35,5 +36,6 @@ app.use(express.json());
 //Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/mfa", mfaRoutes);
+app.use("/api/profile", profileRoutes);
 
 app.listen(process.env.PORT, () => console.log("SERVER STARTED SUCCESSFULLY."));
