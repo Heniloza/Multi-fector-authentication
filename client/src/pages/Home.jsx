@@ -1,10 +1,12 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { useSelector } from "react-redux";
 
 function Home() {
   const isLoggedIn = true;
   const username = "Henil Shrimali";
   const handleLogout = () => {};
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar

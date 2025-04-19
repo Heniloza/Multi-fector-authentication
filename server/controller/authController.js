@@ -1,13 +1,17 @@
 const USER = require("../models/user.js");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
+const speakeasy = require("speakeasy");
 
 //Registration
 const signupController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    const checkUser = await USER.findOne({ username, email });
+    const checkUser = await USER.findOne({
+      $or: [{ username }, { email }],
+    });
+
     if (checkUser) {
       return res.status(409).json({
         success: false,
@@ -23,7 +27,7 @@ const signupController = async (req, res) => {
     });
     await newUser.save();
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "User signup successfully ",
       data: newUser,
@@ -84,7 +88,6 @@ const signinController = async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true,
         sameSite: "strict",
       })
       .status(200)

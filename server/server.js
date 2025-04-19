@@ -18,14 +18,6 @@ connectMongoDB(process.env.MONGO_URL)
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "Cache-Control",
-      "Expires",
-      "Pragma",
-    ],
     credentials: true,
   })
 );
@@ -38,4 +30,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/mfa", mfaRoutes);
 app.use("/api/profile", profileRoutes);
 
-app.listen(process.env.PORT, () => console.log("SERVER STARTED SUCCESSFULLY."));
+app.listen(process.env.PORT, () =>
+  console.log("SERVER STARTED SUCCESSFULLY ON PORT", process.env.PORT)
+);

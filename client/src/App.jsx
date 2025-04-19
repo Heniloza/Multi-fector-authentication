@@ -5,12 +5,24 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import MfaSetup from "./pages/MfaSetup";
 import Profile from "./pages/profile";
-
+import { ToastContainer } from "react-toastify";
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
