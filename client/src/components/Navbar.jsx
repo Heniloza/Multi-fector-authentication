@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-function Navbar({ isLoggedIn, username, handleLogout }) {
+function Navbar({ isLoggedIn, user, handleLogout }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const firstLetter = username ? username.charAt(0).toUpperCase() : "";
+  const firstLetter = user?.username?.charAt(0).toUpperCase();
+  console.log(user);
 
   const toggleDropDown = () => {
     setDropdownOpen(!dropdownOpen);

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../store/authSlice";
+import { checkAuth, registerUser } from "../store/authSlice";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +8,18 @@ import { useNavigate, Link } from "react-router-dom";
 function SignupComponent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { isLoggedIn, isAuthChecked } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate, isAuthChecked]);
   const {
     register,
     handleSubmit,

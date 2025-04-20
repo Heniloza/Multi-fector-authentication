@@ -1,13 +1,24 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../store/authSlice";
+import { checkAuth, loginUser } from "../store/authSlice";
 
 function SigninComponent() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoggedIn, isAuthChecked } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate, isAuthChecked]);
 
   const {
     register,
@@ -19,8 +30,7 @@ function SigninComponent() {
     dispatch(loginUser(data)).then((res) => {
       console.log(res);
       if (res?.payload?.success) {
-        toast.success("Successfully Loggedin");
-        navigate("/");
+        navigate("/mfa-setup");
       }
     });
   };

@@ -85,16 +85,21 @@ const signinController = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res
+    return res
       .cookie("token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        secure: false, // true if you use HTTPS
+        sameSite: "Lax",
       })
       .status(200)
       .json({
         success: true,
         message: "Sign Up successfully.",
         token,
+        data: {
+          username: user?.username,
+          email: user?.email,
+        },
       });
   } catch (error) {
     console.log(error);

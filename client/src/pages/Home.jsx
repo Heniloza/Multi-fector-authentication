@@ -3,21 +3,16 @@ import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 
 function Home() {
-  const isLoggedIn = true;
-  const username = "Henil Shrimali";
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const handleLogout = () => {};
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar
-        isLoggedIn={isLoggedIn}
-        username={username}
-        handleLogout={handleLogout}
-      />
+      <Navbar isLoggedIn={isLoggedIn} user={user} handleLogout={handleLogout} />
       <div className="flex-1 flex flex-col gap-8 justify-center items-center">
         <div className="flex flex-col gap-2 justify-center items-center">
           <h1 className="font-extrabold text-3xl tracking-wider">
-            {isLoggedIn ? `Hello, ${username}` : "Hello,Developer"}
+            {isLoggedIn ? `Hello, ${user?.username}` : "Hello,Developer"}
           </h1>
           <h1 className="font-extrabold text-2xl tracking-widert">
             Welcome to our App

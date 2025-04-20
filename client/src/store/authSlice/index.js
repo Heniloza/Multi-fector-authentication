@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   isLoggedIn: false,
   user: {},
+  isAuthChecked: false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -31,18 +32,19 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk("/auth/logoutUser", async () => {
-  const response = await axios.post("http://localhost:8000/api/auth/logout", {
-    withCredentials: true,
-  });
+  const response = await axios.post(
+    "http://localhost:8000/api/auth/logout",
+    {},
+    {
+      withCredentials: true,
+    }
+  );
   return response?.data;
 });
 
 export const checkAuth = createAsyncThunk("/auth/checkauth", async () => {
   const response = await axios.get("http://localhost:8000/api/auth/checkAuth", {
     withCredentials: true,
-    headers: {
-      "Cache-Control": "no-store,no-cache,must-revalidate,proxy-revalidate",
-    },
   });
   return response.data;
 });
@@ -89,12 +91,14 @@ export const authSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.user = action.payload.data;
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.isLoading = false;
         state.isLoggedIn = false;
         state.user = null;
+        state.isAuthChecked = true;
       });
   },
 });
