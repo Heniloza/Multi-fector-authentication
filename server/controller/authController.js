@@ -43,10 +43,13 @@ const signupController = async (req, res) => {
 //Login
 const signinController = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, mfaCode } = req.body;
 
     const user = await USER.findOne({ email });
+
     if (!user) {
+      console.log("NO user found");
+
       return res.status(404).json({
         success: false,
         message: "User with this email don't exist",
@@ -60,17 +63,49 @@ const signinController = async (req, res) => {
       });
     }
 
-    if (user.mfaEnabled) {
-      const { mfaCode } = req.body;
+    if (user.mfaEnabled && !mfaCode) {
+      const token = JWT.sign(
+        {
+          userId: user?._id,
+          username: user?.username,
+          email: user?.email,
+          mfaVerified: user.mfaEnabled ? true : false,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
 
+      return res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: false, // true if you use HTTPS
+          sameSite: "Lax",
+        })
+        .status(200)
+        .json({
+          success: true,
+          message: "Sign Up successfully.",
+          token,
+          data: {
+            username: user?.username,
+            email: user?.email,
+          },
+        });
+    }
+
+    if (user.mfaEnabled && mfaCode) {
       const isValid = speakeasy.totp.verify({
         secret: user.mfaSecret,
         encoding: "base32",
         token: mfaCode,
+        window: 1,
       });
 
       if (!isValid) {
-        return res.status(400).json({ message: "Invalid MFA code" });
+        return res.status(400).json({
+          success: false,
+          message: "Invalid MFA code",
+        });
       }
     }
 

@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-function Navbar({ isLoggedIn, user, handleLogout }) {
+function Navbar({ isLoggedIn, user, handleLogout, isAuthChecked, checkState }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const firstLetter = user?.username?.charAt(0).toUpperCase();
-  console.log(user);
 
   const toggleDropDown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -21,7 +20,7 @@ function Navbar({ isLoggedIn, user, handleLogout }) {
         <Link to="/">DevAuth</Link>
       </div>
       <div>
-        {!isLoggedIn ? (
+        {!checkState ? (
           <div className="p-2 border-2 rounded-2xl px-6 flex justify-center items-center gap-2">
             <Link to="/signin">Login</Link>
             <div className="mt-1">

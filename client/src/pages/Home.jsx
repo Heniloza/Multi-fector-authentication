@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "../store/authSlice";
 
 function Home() {
-  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const { isLoggedIn, user, isAuthChecked } = useSelector(
+    (state) => state.auth
+  );
+  const [checkState, setCheckState] = useState(false);
+  const dispatch = useDispatch();
   const handleLogout = () => {};
+
+  // useEffect(() => {
+  //   dispatch(checkAuth()).then((data) => {
+  //     setCheckState(true);
+  //     console.log(data, "yes");
+  //   });
+  // }, [dispatch]);
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar isLoggedIn={isLoggedIn} user={user} handleLogout={handleLogout} />
+      <Navbar
+        isLoggedIn={isLoggedIn}
+        user={user}
+        handleLogout={handleLogout}
+        isAuthChecked={isAuthChecked}
+        checkState={checkState}
+      />
       <div className="flex-1 flex flex-col gap-8 justify-center items-center">
         <div className="flex flex-col gap-2 justify-center items-center">
           <h1 className="font-extrabold text-3xl tracking-wider">

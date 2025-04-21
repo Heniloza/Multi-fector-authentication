@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { setMfaVerified } from "../store/authSlice";
 
 function MfaVerifyComponent() {
   const [mfaCode, setMfaCode] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +28,7 @@ function MfaVerifyComponent() {
         setSuccess("MFA verified and enabled successfully!");
         setError("");
         toast.success("Successfully Loggedin");
+        dispatch(setMfaVerified(true));
         navigate("/");
       } else {
         setError(data.message);
@@ -37,20 +41,34 @@ function MfaVerifyComponent() {
     }
   };
   return (
-    <div className="mfa-verify-container">
-      <h2>Enter the code from your Authenticator App</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter MFA code"
-          value={mfaCode}
-          onChange={(e) => setMfaCode(e.target.value)}
-          required
-        />
-        <button type="submit">Verify MFA</button>
-      </form>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          Enter the code from your Authenticator App
+        </h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Enter MFA code"
+            value={mfaCode}
+            onChange={(e) => setMfaCode(e.target.value)}
+            required
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+          >
+            Verify MFA
+          </button>
+        </form>
+
+        {error && <p className="text-red-500 font-medium mt-4">{error}</p>}
+        {success && (
+          <p className="text-green-500 font-medium mt-4">{success}</p>
+        )}
+      </div>
     </div>
   );
 }

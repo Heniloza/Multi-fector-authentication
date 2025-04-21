@@ -6,6 +6,7 @@ const initialState = {
   isLoggedIn: false,
   user: {},
   isAuthChecked: false,
+  isMfaVerified: false,
 };
 
 export const registerUser = createAsyncThunk(
@@ -52,7 +53,12 @@ export const checkAuth = createAsyncThunk("/auth/checkauth", async () => {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setMfaVerified: (state, action) => {
+      state.isMfaVerified = action.payload;
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -103,4 +109,5 @@ export const authSlice = createSlice({
   },
 });
 
+export const { setMfaVerified } = authSlice.actions;
 export default authSlice.reducer;
