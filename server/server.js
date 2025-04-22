@@ -16,7 +16,7 @@ connectMongoDB(process.env.MONGO_URL)
 //MiddleWares
 const allowedOrigins = [
   "http://localhost:8000",
-  "https://multi-fector-authentication.vercel.app",
+  "https://multi-fector-authentication.vercel.app.vercel.app",
 ];
 app.use(
   cors({
