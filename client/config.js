@@ -1,1 +1,1 @@
-export const API_URL = "https://multi-fector-authentication--blush.vercel.app";
+export const API_URL = "https://multi-fector-authentication-.vercel.app";
