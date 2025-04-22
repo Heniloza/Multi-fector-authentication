@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import MfaSetup from "./pages/MfaSetup";
 import Profile from "./pages/Profile.jsx";
 import { ToastContainer } from "react-toastify";
+import NotFound from "./pages/NotFound.jsx";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -24,6 +25,7 @@ function App() {
         theme="colored"
       />
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
