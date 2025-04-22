@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import MfaSetup from "./pages/MfaSetup";
-import Profile from "./pages/profile";
+import Profile from "./pages/Profile.jsx";
 import { ToastContainer } from "react-toastify";
 function App() {
   const [count, setCount] = useState(0);

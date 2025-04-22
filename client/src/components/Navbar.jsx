@@ -1,10 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { checkAuth, setMfaVerified } from "../store/authSlice";
+import { useDispatch } from "react-redux";
+import { SiFusionauth } from "react-icons/si";
 
-function Navbar({ isLoggedIn, user, handleLogout, isAuthChecked, checkState }) {
+function Navbar({ isLoggedIn, user, handleLogout }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const firstLetter = user?.username?.charAt(0).toUpperCase();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleDropDown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -14,15 +19,25 @@ function Navbar({ isLoggedIn, user, handleLogout, isAuthChecked, checkState }) {
     setDropdownOpen(false);
   };
 
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
   return (
     <nav className="w-full h-20 flex justify-between items-center px-8">
-      <div>
-        <Link to="/">DevAuth</Link>
+      <div className="flex justify-center items-center gap-2 text-2xl">
+        <SiFusionauth className="text-blue-500 font-extrabold text-4xl" />
+        <Link className="text-black font-extrabold" to="/">
+          DevAuth
+        </Link>
       </div>
       <div>
-        {!checkState ? (
-          <div className="p-2 border-2 rounded-2xl px-6 flex justify-center items-center gap-2">
-            <Link to="/signin">Login</Link>
+        {!isLoggedIn ? (
+          <div
+            onClick={() => navigate("/signin")}
+            className="p-2 border-2 rounded-2xl px-6 flex justify-center items-center gap-2"
+          >
+            <span>Login</span>
             <div className="mt-1">
               <FaArrowRightLong />
             </div>
