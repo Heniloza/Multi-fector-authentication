@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL } from "../../config";
 
 function MfaSetupComponent() {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
@@ -9,12 +10,9 @@ function MfaSetupComponent() {
   useEffect(() => {
     const fetchMfa = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/mfa/generate",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/mfa/generate`, {
+          withCredentials: true,
+        });
 
         const data = response?.data;
         console.log(data);

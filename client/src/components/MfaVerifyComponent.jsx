@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setMfaVerified } from "../store/authSlice";
+import { API_URL } from "../../config";
 
 function MfaVerifyComponent() {
   const [mfaCode, setMfaCode] = useState("");
@@ -17,7 +18,7 @@ function MfaVerifyComponent() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/mfa/verify",
+        `${API_URL}/api/mfa/verify`,
         { mfaCode },
         { withCredentials: true }
       );

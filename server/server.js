@@ -14,9 +14,13 @@ connectMongoDB(process.env.MONGO_URL)
   .catch((err) => console.log("Error in connecting to database", err));
 
 //MiddleWares
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://your-frontend-project-name.vercel.app",
+];
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
