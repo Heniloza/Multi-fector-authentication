@@ -32,6 +32,6 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/mfa", mfaRoutes);
 
-app.listen(process.env.PORT, () =>
+app.listen(process.env.PORT || 8000, () =>
   console.log("SERVER STARTED SUCCESSFULLY ON PORT", process.env.PORT)
 );
