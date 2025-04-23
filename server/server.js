@@ -19,8 +19,13 @@ app.use(
   cors({
     origin: "https://multi-fector-authentication.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "OPTIONS"], // Explicitly allow these methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
   })
 );
+
+// Explicitly handle OPTIONS preflight requests
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
