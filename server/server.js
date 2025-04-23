@@ -17,7 +17,7 @@ connectMongoDB(process.env.MONGO_URL)
 
 app.use(
   cors({
-    origin: "https://multi-fector-authentication.vercel.app",
+    origin: "https://multi-fector-authentication-qrcode.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"], // Explicitly allow these methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
