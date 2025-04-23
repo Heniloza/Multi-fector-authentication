@@ -78,7 +78,7 @@ const signinController = async (req, res) => {
       return res
         .cookie("token", token, {
           httpOnly: true,
-          secure: false, // true if you use HTTPS
+          secure: true, // true if you use HTTPS
           sameSite: "Lax",
         })
         .status(200)
