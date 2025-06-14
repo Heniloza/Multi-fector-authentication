@@ -1,10 +1,10 @@
-# 🔐 Two Factor Authentication using QR Code
+#  Two Factor Authentication using QR Code
 
 This project implements a **Two Factor Authentication (2FA)** system using QR code-based setup and **Time-based One-Time Password (TOTP)**, commonly used by apps like **Google Authenticator** or **Authy**.
 
 ---
 
-## 🚀 Features
+##  Features
 
 - Secure user authentication
 - QR Code generation for TOTP setup
@@ -14,7 +14,7 @@ This project implements a **Two Factor Authentication (2FA)** system using QR co
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
@@ -23,7 +23,7 @@ This project implements a **Two Factor Authentication (2FA)** system using QR co
 
 ---
 
-## 📦 Installation
+##  Installation
 
 ```bash
 git clone https://github.com/your-username/two-factor-auth-qr.git
